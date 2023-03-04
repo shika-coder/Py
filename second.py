@@ -47,15 +47,14 @@ class Player:
 
 
 class Enemy:
-    def __init__(self, x, y):
+    def __init__(self, x, y, vel_y):
         self.x = x
         self.y = y
-        self.vel_y = 16
+        self.vel_y = vel_y
 
     def draw(self):
         self.enemy_ = pygame.draw.rect(screen,(255,255,255),(self.x,self.y,50,50))
-        self.y -= self.vel_y
-        self.vel_y -= 0.6
+        self.y += 2
 
     
 
@@ -71,13 +70,16 @@ class Border:
 
 
 
+
+player = Player(5,500,600)
+enemy = Enemy(random.randint(0, 1000), 0, 10)
+border = Border(0,700,1000,700)
 running = True
 
 
-
-player = Player(5,500,600)
-enemy = Enemy(random.randint(0, 1000), 0)
-border = Border(0,700,1000,700)
+def check_collision(enemy, player):
+    if pygame.rect.colliderect(enemy, player) = True:
+        enemy.de
 
 while running:
     
