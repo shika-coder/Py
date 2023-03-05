@@ -1,4 +1,5 @@
 import pygame,sys
+from pygame import *
 import random
 import time
 
@@ -38,7 +39,7 @@ class Player:
                 self.vel_y = 16
 
     def draw(self):
-        self.player_ = pygame.draw.rect(screen,(255,255,255),(self.x,self.y,50,100))
+        self.rect = pygame.draw.rect(screen,(255,255,255),(self.x,self.y,50,100))
 
     def do(self):
         self.move()
@@ -47,13 +48,14 @@ class Player:
 
 
 class Enemy:
-    def __init__(self, x, y, vel_y):
+    def __init__(self, x, y, vel_y, color):
         self.x = x
         self.y = y
         self.vel_y = vel_y
+        self.color = color
 
     def draw(self):
-        self.enemy_ = pygame.draw.rect(screen,(255,255,255),(self.x,self.y,50,50))
+        self.rect = pygame.draw.rect(screen, self.color,(self.x,self.y,50,50))
         self.y += 2
 
     
@@ -66,20 +68,23 @@ class Border:
         self.y2 = y2
 
     def draw(self):
-        self.border_ = pygame.draw.line(screen, (255,255,255), (self.x1, self.y1), (self.x2, self.y2), 10)
+        self.rect = pygame.draw.line(screen, (255,255,255), (self.x1, self.y1), (self.x2, self.y2), 10)
 
 
 
 
 player = Player(5,500,600)
-enemy = Enemy(random.randint(0, 1000), 0, 10)
+enemy = Enemy(random.randint(0, 1000), 0, 10, (255,255,255))
 border = Border(0,700,1000,700)
 running = True
 
+def check_collide():
+    if player.rect.colliderect(enemy.rect):
+        print("works")
 
-def check_collision(enemy, player):
-    if pygame.rect.colliderect(enemy, player) = True:
-        enemy.de
+
+
+
 
 while running:
     
@@ -87,9 +92,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-            
-     
+        
+
+
     player.do()
+    check_collide()
     enemy.draw()
     border.draw()
 
